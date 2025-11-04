@@ -38,3 +38,34 @@ button.volver {
 #entradas { color: green; }
 #salidas { color: red; }
 #pendientes { color: orange; }
+
+h1, h2 {
+  color: #007aff;
+}
+
+input, select {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 80%;
+  max-width: 300px;
+}
+
+#total {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+  transition: 0.1s ease;
+}
+
+@media (max-width: 600px) {
+  button {
+    width: 80%;
+  }
+}
