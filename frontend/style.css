@@ -1,0 +1,40 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  background: #f5f6fa;
+  color: #222;
+  text-align: center;
+}
+
+.hidden { display: none; }
+
+button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: #007aff;
+  color: white;
+  font-size: 1rem;
+}
+
+button.volver {
+  background: #999;
+}
+
+.botones button {
+  width: 200px;
+  font-size: 1.1rem;
+}
+
+#caja .caja-seccion {
+  background: white;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+#entradas { color: green; }
+#salidas { color: red; }
+#pendientes { color: orange; }
