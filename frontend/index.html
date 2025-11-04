@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eaxy Group</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section id="login-screen" class="card">
+      <img id="logo" src="icons/icon-192.png" alt="Eaxy" />
+      <h1>Eaxy Group</h1>
+      <div class="field"><input id="login-user" placeholder="Usuario" /></div>
+      <div class="field"><input id="login-pin" placeholder="PIN" type="password" /></div>
+      <div class="actions">
+        <button id="btn-login" class="capsule primary">Entrar</button>
+      </div>
+      <div id="login-msg" class="muted"></div>
+      <div class="users-list">Usuarios disponibles: <strong>dani</strong>, <strong>camilo</strong></div>
+    </section>
+    <section id="home-screen" class="hidden">
+      <header class="top"><button id="back-home" class="icon back hidden">←</button><h2 id="welcome">Bienvenido</h2></header>
+      <div class="grid">
+        <button class="big capsule" id="btn-ops">📋 Operaciones</button>
+        <button class="big capsule" id="btn-caja">🔒 Caja Fuerte</button>
+        <button class="big capsule" id="btn-conv">💱 Conversor</button>
+        <button class="big capsule" id="btn-ajustes">⚙️ Ajustes</button>
+        <button class="big capsule" id="btn-ver-todas">📁 Ver Todas</button>
+      </div>
+    </section>
+    <section id="ops-screen" class="screen hidden card"></section>
+    <section id="caja-screen" class="screen hidden card"></section>
+    <section id="conv-screen" class="screen hidden card"></section>
+    <section id="ajustes-screen" class="screen hidden card"></section>
+  </main>
+<script src="script.js"></script>
+</body>
+</html>
