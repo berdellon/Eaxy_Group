@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestor de Divisas</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="main.js"></script>
+</head>
+<body>
+
+  <div id="app">
+
+    <!-- LOGIN -->
+    <section id="login">
+      <h1>Gestor de Divisas</h1>
+      <input type="text" id="usuario" placeholder="Tu nombre">
+      <button id="entrar">Entrar</button>
+    </section>
+
+    <!-- HOME -->
+    <section id="home" class="hidden">
+      <h2 id="bienvenida"></h2>
+      <div class="botones">
+        <button id="btn-operaciones">Operaciones</button>
+        <button id="btn-caja">Caja Fuerte</button>
+        <button id="btn-conversor">Conversor</button>
+        <button id="btn-ajustes">Ajustes</button>
+      </div>
+    </section>
+
+    <!-- CONVERSOR -->
+    <section id="conversor" class="hidden">
+      <h2>Conversor € ↔ $</h2>
+      <div>
+        <input id="monto" type="number" placeholder="Cantidad">
+        <select id="direccion">
+          <option value="EURtoUSD">€ → $</option>
+          <option value="USDtoEUR">$ → €</option>
+        </select>
+        <button id="convertir">Convertir</button>
+      </div>
+      <p id="resultado"></p>
+      <button id="actualizar-tasa">Actualizar tasa</button>
+      <button onclick="window.open('https://www.xe.com', '_blank')">Abrir XE</button>
+      <button class="volver">🏠</button>
+    </section>
+
+    <!-- CAJA FUERTE -->
+    <section id="caja" class="hidden">
+      <h2>Caja Fuerte</h2>
+      <div id="total"></div>
+      <div class="caja-seccion" id="entradas"><h3>Entradas</h3></div>
+      <div class="caja-seccion" id="salidas"><h3>Salidas</h3></div>
+      <div class="caja-seccion" id="pendientes"><h3>Pendientes</h3></div>
+      <button class="volver">🏠</button>
+    </section>
+
+    <!-- AJUSTES -->
+    <section id="ajustes" class="hidden">
+      <h2>Ajustes</h2>
+      <button id="exportar">Exportar Backup</button>
+      <input type="file" id="importar" hidden>
+      <button id="btn-importar">Importar Backup</button>
+      <button class="volver">🏠</button>
+    </section>
+
+  </div>
+</body>
+</html>
