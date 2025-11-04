@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eaxy Group</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="login-screen" class="screen">
+    <h1>Eaxy Group</h1>
+    <input id="login-user" placeholder="Usuario" />
+    <input id="login-pin" placeholder="PIN" type="password" />
+    <button id="btn-login">Entrar</button>
+    <div id="login-msg" class="muted"></div>
+    <div class="users-list">Usuarios disponibles: <strong>dani</strong>, <strong>camilo</strong></div>
+  </div>
+
+  <div id="home-screen" class="screen hidden">
+    <header><button id="back-home" class="hidden">←</button><h2 id="welcome">Bienvenido</h2></header>
+    <div class="grid">
+      <button class="big" id="btn-ops">📋 Operaciones</button>
+      <button class="big" id="btn-caja">🔒 Caja Fuerte</button>
+      <button class="big" id="btn-conv">💱 Conversor</button>
+      <button class="big" id="btn-ajustes">⚙️ Ajustes</button>
+    </div>
+  </div>
+
+  <div id="ops-screen" class="screen hidden">
+    <div class="topbar"><button class="back">←</button><h2>Operaciones</h2></div>
+    <div id="ops-list"></div>
+    <div class="form">
+      <h3>Nueva operación</h3>
+      <select id="op-tipo"><option>Cash</option><option>Envío</option><option>Depósito</option><option>Retirada</option></select>
+      <input id="op-cliente" placeholder="Cliente" />
+      <input id="op-efectivo" placeholder="Efectivo €" type="number" />
+      <input id="op-usdt" placeholder="USDT (si aplica)" type="number" />
+      <input id="op-com" placeholder="Comisión" type="number" />
+      <button id="op-save">Guardar</button>
+    </div>
+  </div>
+
+  <div id="caja-screen" class="screen hidden">
+    <div class="topbar"><button class="back">←</button><h2>Caja Fuerte</h2></div>
+    <div id="caja-total" class="big-total">€0,00</div>
+    <div class="caja-sections">
+      <div id="entradas" class="caja-section"><h4>Entradas</h4><div class="list"></div></div>
+      <div id="salidas" class="caja-section"><h4>Salidas</h4><div class="list"></div></div>
+      <div id="pendientes" class="caja-section"><h4>Pendientes</h4><div class="list"></div></div>
+    </div>
+  </div>
+
+  <div id="conv-screen" class="screen hidden">
+    <div class="topbar"><button class="back">←</button><h2>Conversor € ↔ $ (USDT)</h2></div>
+    <div class="conv">
+      <input id="conv-amount" type="number" value="1" />
+      <select id="conv-base"><option value="EUR">EUR</option><option value="USD">USD</option></select>
+      <select id="conv-target"><option value="USD">USD</option><option value="EUR">EUR</option></select>
+      <button id="conv-update">Actualizar tasa</button>
+      <button id="conv-do">Convertir</button>
+      <button id="conv-copy">Copiar resultado</button>
+      <div id="conv-result" class="big-result"></div>
+      <button class="link" id="open-xe">Abrir XE</button>
+    </div>
+  </div>
+
+  <div id="ajustes-screen" class="screen hidden">
+    <div class="topbar"><button class="back">←</button><h2>Ajustes</h2></div>
+    <div class="form">
+      <button id="btn-export">Exportar backup</button>
+      <input id="file-import" type="file" style="display:none" />
+      <button id="btn-import">Importar backup</button>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
