@@ -3,17 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Eaxy Group</title>
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="css/style.css">
+<title>Eaxy Group - Login</title>
+<link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
   <main class="container">
     <section id="login-screen" class="card">
-      <img id="logo" src="logo.png" alt="Eaxy" />
+      <img id="logo" src="static/img/logo.png" alt="Eaxy Logo">
       <h1>Eaxy Group</h1>
-      <div class="field"><input id="login-user" placeholder="Usuario" /></div>
-      <div class="field"><input id="login-pin" placeholder="PIN" type="password" /></div>
+      <div class="field"><input id="login-user" placeholder="Usuario" autocomplete="username"></div>
+      <div class="field"><input id="login-pin" placeholder="PIN" type="password" autocomplete="current-password"></div>
       <div class="actions">
         <button id="btn-login" class="capsule primary">Entrar</button>
       </div>
@@ -21,6 +20,6 @@
     </section>
     <section id="app-root" class="hidden"></section>
   </main>
-<script src="js/app.js"></script>
+<script src="static/js/app.js"></script>
 </body>
 </html>
