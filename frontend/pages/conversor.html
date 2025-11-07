@@ -1,0 +1,18 @@
+<button class="back-btn" onclick="loadHome()">⟵ Volver</button>
+
+<h2>Conversor EUR → USD</h2>
+
+<div class="section">
+    <button class="btn-pill" onclick="actualizarTasa()">Actualizar tasa</button>
+    <p id="tasa_actual" style="margin-top:10px;">Sin actualizar</p>
+
+    <input id="cantidad" placeholder="Cantidad en EUR">
+    <button class="btn-pill" onclick="convertirMoneda()">Convertir</button>
+
+    <div id="resultado" class="result-box">--</div>
+    <button class="btn-pill" onclick="copiarResultado()">Copiar resultado</button>
+
+    <button class="btn-pill" onclick="window.open('https://www.xe.com/es-es/currencyconverter/')">
+        Abrir XE
+    </button>
+</div>
