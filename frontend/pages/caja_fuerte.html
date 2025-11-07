@@ -1,0 +1,45 @@
+<button class="back-btn" onclick="loadHome()">⟵ Volver</button>
+
+<h2>Caja Fuerte</h2>
+
+<div class="section">
+    <h3>Total</h3>
+    <p id="cf_total">0 €</p>
+</div>
+
+<div class="section">
+    <h3>Entradas</h3>
+    <div id="cf_in"></div>
+</div>
+
+<div class="section">
+    <h3>Salidas</h3>
+    <div id="cf_out"></div>
+</div>
+
+<div class="section">
+    <h3>Pendientes</h3>
+    <div id="cf_pending"></div>
+</div>
+
+<script>
+// Cargar datos reales
+fetch("/api/caja")
+    .then(r => r.json())
+    .then(cf => {
+        document.getElementById("cf_total").innerText = cf.total;
+
+        cf.in.forEach(x => {
+            document.getElementById("cf_in").innerHTML +=
+                `<p class='item-green'>${x}</p>`;
+        });
+        cf.out.forEach(x => {
+            document.getElementById("cf_out").innerHTML +=
+                `<p class='item-red'>${x}</p>`;
+        });
+        cf.pending.forEach(x => {
+            document.getElementById("cf_pending").innerHTML +=
+                `<p class='item-orange'>${x}</p>`;
+        });
+    });
+</script>
