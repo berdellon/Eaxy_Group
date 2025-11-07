@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang='es'><head>
+<meta charset='utf-8'/><meta name='viewport' content='width=device-width, initial-scale=1'/>
+<title>Eaxy Group — Gestor</title>
+<link rel='manifest' href='/manifest.json'>
+<link rel='icon' href='/static/icons/icon-192.png' sizes='192x192'>
+<link rel='apple-touch-icon' href='/static/icons/icon-512.png'>
+<style>
+:root{--blue1:#0a66ff;--blue2:#012a5c;--white:#fff;}
+body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--blue1),var(--blue2));color:var(--white);min-height:100dvh;display:flex;align-items:center;justify-content:center}
+.card{width:min(560px,92vw);background:rgba(255,255,255,.06);backdrop-filter: blur(10px);border:1px solid rgba(255,255,255,.2);border-radius:22px;padding:28px 22px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.logo{width:120px;height:120px;margin:6px auto 18px;display:block;border-radius:24px;background:url('/static/icons/logo-1024.png') center/cover no-repeat}
+h1{margin:0 0 6px;font-size:24px;text-align:center;font-weight:800}
+.muted{opacity:.85;text-align:center;margin:0 0 16px}
+.row{display:flex;gap:12px}
+.input{flex:1;background:#fff;color:#111827;border-radius:14px;padding:14px 16px;font-size:16px;border:none;outline:none}
+.capsule{width:100%;border:none;outline:none;padding:14px 16px;border-radius:999px;font-weight:700;font-size:17px;color:#fff;background:linear-gradient(180deg,#2b73ff,#1540a3);box-shadow:0 6px 16px rgba(10,102,255,.45);cursor:pointer}
+.capsule:active{transform:translateY(1px)}
+.grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:10px}
+.hidden{display:none!important}
+.chip{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.12);font-weight:600}
+.section{margin:12px 0 4px;font-weight:800}
+.btn-row{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
+.btn{padding:12px 16px;border-radius:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);cursor:pointer}
+.list{margin-top:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:8px}
+.list-item{display:flex;justify-content:space-between;padding:10px 8px;border-bottom:1px solid rgba(255,255,255,.12);font-size:15px}
+.list-item:last-child{border-bottom:none}
+.green{color:#22c55e}.red{color:#ef4444}.orange{color:#f59e0b}
+.toolbar{display:flex;gap:8px;margin-top:12px}.toolbar .btn{flex:1;text-align:center}
+.center{text-align:center}
+</style></head>
+<body>
+<div class='card' id='view-login'>
+  <div class='logo'></div>
+  <h1>Eaxy Group</h1>
+  <p class='muted'>Gestor de Divisas — Acceso</p>
+  <div class='grid'>
+    <input id='user' class='input' placeholder='Usuario (Dani o Camilo)'/>
+    <input id='pin' class='input' placeholder='PIN' type='password' inputmode='numeric'/>
+    <button id='btn-login' class='capsule'>Entrar</button>
+    <p id='login-status' class='muted'></p>
+  </div>
+</div>
+<div class='card hidden' id='view-home'>
+  <div class='logo' style='width:86px;height:86px;border-radius:18px'></div>
+  <h1 id='welcome'>Hola</h1>
+  <div class='grid'>
+    <button class='capsule' onclick="openView('ops')">➕ Operaciones</button>
+    <button class='capsule' onclick="openView('caja')">💼 Caja Fuerte</button>
+    <div class='row'>
+      <button class='capsule' onclick="openView('conv')">💱 Conversor</button>
+      <button class='capsule' onclick="openView('settings')">⚙️ Ajustes</button>
+    </div>
+    <button class='capsule' onclick='logout()'>⟵ Salir</button>
+  </div>
+</div>
+<div class='card hidden' id='view-ops'>
+  <h1>Operaciones</h1>
+  <div class='grid'>
+    <input class='input' id='op-cliente' placeholder='Cliente'/>
+    <input class='input' id='op-importe' placeholder='Importe €' inputmode='decimal'/>
+    <input class='input' id='op-usdt' placeholder='USDT (opcional)' inputmode='decimal'/>
+    <div class='row'>
+      <button class='capsule' onclick="guardar('Cash')">💶 Cash</button>
+      <button class='capsule' onclick="guardar('Depósito')">🏦 Depósito</button>
+    </div>
+    <div class='row'>
+      <button class='capsule' onclick="guardar('Envío')">📤 Envío</button>
+      <button class='capsule' onclick="guardar('Retirada')">💸 Retirada</button>
+    </div>
+    <div class='toolbar'><div class='btn' onclick="openView('home')">⟵ Inicio</div><div class='btn' onclick='verTodas()'>📋 Ver todas</div></div>
+    <div class='list' id='lista-ops'></div>
+  </div>
+</div>
+<div class='card hidden' id='view-caja'>
+  <h1>Caja fuerte</h1>
+  <p class='center'>Total: <span id='caja-total' class='chip'></span></p>
+  <div class='section'>Pendientes de retirada</div><div class='list' id='caja-reservas'></div>
+  <div class='section'>Entradas</div><div class='list' id='caja-entradas'></div>
+  <div class='section'>Salidas</div><div class='list' id='caja-salidas'></div>
+  <div class='toolbar'><div class='btn' onclick="openView('home')">⟵ Inicio</div><div class='btn' onclick='refrescarCaja()'>↻ Actualizar</div></div>
+</div>
+<div class='card hidden' id='view-conv'>
+  <h1>Conversor € ↔ $</h1>
+  <div class='grid'>
+    <div class='row'><button class='capsule' onclick='setMode(0)'>€ → $</button><button class='capsule' onclick='setMode(1)'>$ → €</button></div>
+    <input id='conv-cantidad' class='input' placeholder='Cantidad' inputmode='decimal'/>
+    <input id='conv-resultado' class='input' placeholder='Resultado' readonly/>
+    <div class='row'><button class='capsule' onclick='updateRate()'>Actualizar tasa</button><button class='capsule' onclick='convertir()'>Convertir</button></div>
+    <div class='row'><button class='capsule' onclick='copyResult()'>Copiar resultado</button><a class='capsule' style='text-align:center;display:block;text-decoration:none' href='https://www.xe.com/es-es/currencyconverter/' target='_blank'>Abrir XE</a></div>
+    <div class='toolbar'><div class='btn' onclick="openView('home')">⟵ Inicio</div></div>
+    <p class='muted center' id='rate-info'></p>
+  </div>
+</div>
+<div class='card hidden' id='view-settings'>
+  <h1>Ajustes</h1>
+  <div class='grid'>
+    <button class='capsule' onclick='openHistorial()'>📜 Historial</button>
+    <button class='capsule' onclick='exportBackup()'>⬇️ Exportar backup</button>
+    <input type='file' id='import-file' class='input' accept='application/json'/>
+    <button class='capsule' onclick='importBackup()'>⬆️ Importar backup</button>
+    <div class='toolbar'><div class='btn' onclick="openView('home')">⟵ Inicio</div></div>
+    <div class='list' id='lista-historial'></div>
+  </div>
+</div>
+<script>
+const API = (p)=> (location.origin.includes('render.com')? location.origin:'') + '/api' + p; 
+let mode=0, rate=null, user=null;
+function openView(n){['login','home','ops','caja','conv','settings'].forEach(v=>document.getElementById('view-'+v)?.classList.add('hidden'));document.getElementById('view-'+n)?.classList.remove('hidden'); if(n==='caja')refrescarCaja(); if(n==='ops')verTodas(); if(n==='settings')openHistorial(); if(n==='home')document.getElementById('welcome').textContent='Hola, '+(user||''); if(n==='conv' && !rate)updateRate();}
+document.getElementById('btn-login').onclick=async()=>{const u=document.getElementById('user').value.trim();const p=document.getElementById('pin').value.trim();const s=document.getElementById('login-status');s.textContent='';try{const r=await fetch(API('/login'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user:u,pin:p})});if(!r.ok){s.textContent='Credenciales incorrectas';return;}const j=await r.json();if(j.ok){user=u;openView('home');}else{s.textContent=j.error||'Error';}}catch(e){s.textContent='Error de red';}};
+function logout(){user=null;openView('login');}
+async function guardar(tipo){const cliente=document.getElementById('op-cliente').value.trim();const importe=document.getElementById('op-importe').value.trim();const usdt=document.getElementById('op-usdt').value.trim();let estado='Finalizada';if(['Envío','Retirada','Depósito'].includes(tipo)){estado=confirm('¿Finalizada? Cancelar = Recogida pendiente')?'Finalizada':'Recogida pendiente';}const r=await fetch(API('/operaciones'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tipo,cliente,importe,usdt,estado})});if(r.ok){verTodas();alert('Guardada');}}
+async function verTodas(){const box=document.getElementById('lista-ops');const r=await fetch(API('/operaciones'));const ops=r.ok?await r.json():[];box.innerHTML='';ops.forEach(op=>{const div=document.createElement('div');const cls=(op.estado||'').toLowerCase().includes('pend')?'orange':(parseFloat(op.importe)>=0?'green':'red');div.className='list-item';div.innerHTML=`<span class="${cls}">#${op.id} — ${op.cliente}</span><span>${Number(op.importe).toFixed(2)}€</span>`;div.onclick=()=>editarOp(op);box.appendChild(div);});}
+async function editarOp(op){const cliente=prompt('Cliente',op.cliente||'')||op.cliente;const importe=prompt('Importe €',op.importe)||op.importe;const usdt=prompt('USDT (opcional)',op.usdt||'')||op.usdt;const estado=prompt('Estado (Finalizada / Recogida pendiente / Eliminada)',op.estado||'Finalizada')||op.estado;const body={cliente,importe,usdt,estado};const r=await fetch(API('/operaciones/'+op.id),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(r.ok){verTodas();alert('Actualizada');}}
+async function refrescarCaja(){const r=await fetch(API('/caja'));const j=r.ok?await r.json():{total:0,reservas:[],entradas:[],salidas:[]};document.getElementById('caja-total').textContent=(j.total||0).toFixed(2)+' €';const paint=(el,arr,cls)=>{el.innerHTML='';(arr||[]).forEach(m=>{const d=document.createElement('div');d.className='list-item';const color=cls||(m.tipo==='Reserva'?'orange':(parseFloat(m.importe)>=0?'green':'red'));d.innerHTML=`<span class="${color}">#${m.id} — ${m.cliente} (${m.tipo})</span><span>${Number(m.importe).toFixed(2)}€</span>`;if(m.tipo==='Reserva'){d.onclick=async()=>{if(confirm('¿Marcar recogida completada?')){const rr=await fetch(API('/pendiente/'+m.id+'/completar'),{method:'POST'});if(rr.ok)refrescarCaja();}};}el.appendChild(d);});};paint(document.getElementById('caja-reservas'),j.reservas,'orange');paint(document.getElementById('caja-entradas'),j.entradas,'green');paint(document.getElementById('caja-salidas'),j.salidas,'red');}
+function setMode(m){mode=m;document.getElementById('rate-info').textContent=rate?`Tasa 1€ = ${rate.toFixed(4)}$`:'';}
+async function updateRate(){try{const r=await fetch(API('/rate'));const j=await r.json();if(j.ok&&j.rate){rate=j.rate;document.getElementById('rate-info').textContent=`Tasa 1€ = ${rate.toFixed(4)}$`;}else{alert('No se pudo actualizar la tasa');}}catch(e){alert('Error de red');}}
+function convertir(){const v=parseFloat((document.getElementById('conv-cantidad').value||'0').replace(',','.'));if(!rate){alert('Actualiza la tasa primero');return;}let res=mode===0?v*rate:v/rate;document.getElementById('conv-resultado').value=mode===0?res.toFixed(2)+' $ (USDT)':res.toFixed(2)+' €';}
+function copyResult(){const el=document.getElementById('conv-resultado');el.select();document.execCommand('copy');alert('Resultado copiado');}
+function openHistorial(){verHistorial();}
+async function verHistorial(){const r=await fetch(API('/operaciones'));const ops=r.ok?await r.json():[];const box=document.getElementById('lista-historial');box.innerHTML='';ops.forEach(op=>{const d=document.createElement('div');d.className='list-item';d.innerHTML=`<span>#${op.id} — ${op.cliente} [${op.tipo}]</span><span>${Number(op.importe).toFixed(2)}€ — ${op.estado}</span>`;if(op.estado==='Eliminada'){d.onclick=async()=>{const c=confirm('Restaurar (Aceptar) o Eliminar definitivamente (Cancelar)?');if(c){await fetch(API('/historial/'+op.id+'/restore'),{method:'POST'});}else{if(confirm('Peligro!! Eliminar por completo?'))await fetch(API('/historial/'+op.id+'/purge'),{method:'POST'});}verHistorial();};}box.appendChild(d);});}
+function exportBackup(){window.location.href=API('/backup/export');}
+async function importBackup(){const f=document.getElementById('import-file').files[0];if(!f){alert('Selecciona un archivo');return;}const form=new FormData();form.append('file',f);const r=await fetch(API('/backup/import'),{method:'POST',body:form});if(r.ok){alert('Importado');}else{alert('Error importando');}}
+openView('login');
+</script></body></html>

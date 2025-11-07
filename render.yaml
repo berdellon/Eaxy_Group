@@ -1,12 +1,14 @@
 services:
   - type: web
-    name: eaxy-group
+    name: eaxy-group-backend
     env: python
-    region: frankfurt
-    buildCommand: pip install -r requirements.txt
-    startCommand: python backend/app.py
-    autoDeploy: true
     plan: free
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+  - type: static
+    name: eaxy-group-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: ""
+    staticPublishPath: ./

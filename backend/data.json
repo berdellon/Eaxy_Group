@@ -1,0 +1,15 @@
+{
+  "usuarios": {
+    "Dani": {
+      "pin": "1319",
+      "role": "admin"
+    },
+    "Camilo": {
+      "pin": "3852",
+      "role": "admin"
+    }
+  },
+  "ultimo_usuario": null,
+  "operaciones": [],
+  "caja_fuerte": []
+}
