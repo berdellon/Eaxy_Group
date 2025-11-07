@@ -1,10 +1,26 @@
+from flask import Flask, send_from_directory, jsonify, request
+import os, json
 
-from flask import Flask, request, jsonify, send_file
-from flask_cors import CORS
-import os, json, datetime, requests
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.join(BASE_DIR, "../frontend")
 
-app = Flask(__name__)
-CORS(app)
+app = Flask(
+    __name__,
+    static_folder=os.path.join(FRONTEND_DIR, "static"),
+    template_folder=FRONTEND_DIR
+)
+
+@app.route("/")
+def root():
+    return send_from_directory(FRONTEND_DIR, "index.html")
+
+@app.route("/static/<path:path>")
+def static_dir(path):
+    return send_from_directory(os.path.join(FRONTEND_DIR, "static"), path)
+
+@app.route("/pages/<path:path>")
+def pages_dir(path):
+    return send_from_directory(os.path.join(FRONTEND_DIR, "pages"), path)
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), "data.json")
 
