@@ -1,0 +1,17 @@
+<button class="back-btn" onclick="location.reload()">⟵ Salir</button>
+
+<h2>Bienvenido, <span id="username"></span></h2>
+
+<div style="text-align:center; margin-top:20px;">
+    <button class="btn-circle" onclick="openOperaciones()">Operaciones</button>
+    <button class="btn-circle" onclick="openCajaFuerte()">Caja Fuerte</button>
+</div>
+
+<div style="text-align:center; margin-top:20px;">
+    <button class="btn-circle" onclick="openConversor()">Conversor</button>
+    <button class="btn-circle" onclick="openAjustes()">Ajustes</button>
+</div>
+
+<script>
+document.getElementById("username").innerText = currentUser;
+</script>
