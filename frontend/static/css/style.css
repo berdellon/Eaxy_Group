@@ -1,0 +1,103 @@
+/* Fondo degradado azul eléctrico */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(to bottom, #0044ff, #001133);
+    min-height: 100vh;
+    color: #ffffff;
+}
+
+/* Centrado general */
+.container {
+    max-width: 420px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Logo */
+.logo {
+    display: block;
+    width: 120px;
+    height: 120px;
+    margin: 30px auto 20px auto;
+}
+
+/* Tarjeta del login */
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(6px);
+    border-radius: 20px;
+    padding: 25px;
+    color: #fff;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+}
+
+/* Botones tipo cápsula */
+.btn-pill {
+    width: 100%;
+    padding: 15px;
+    margin-top: 18px;
+    border: none;
+    border-radius: 30px;
+    background: #00b2ff;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Botones redondos grandes del home */
+.btn-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 100%;
+    border: none;
+    margin: 15px;
+    background: #ffffff33;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    backdrop-filter: blur(5px);
+}
+
+/* Botón atrás */
+.back-btn {
+    font-size: 16px;
+    background: none;
+    border: none;
+    color: #aad4ff;
+    margin-bottom: 15px;
+}
+
+/* Tarjetas interiores */
+.section {
+    background: rgba(255, 255, 255, 0.10);
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+/* Listado de caja fuerte por colores */
+.item-green { color: #39ff14; font-weight: bold; }
+.item-red { color: #ff4444; font-weight: bold; }
+.item-orange { color: #ffb347; font-weight: bold; }
+
+/* Conversor */
+.result-box {
+    padding: 12px;
+    text-align: center;
+    background: #ffffff22;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 12px;
+}
