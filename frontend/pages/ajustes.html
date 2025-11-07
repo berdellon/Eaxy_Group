@@ -1,0 +1,18 @@
+<button class="back-btn" onclick="loadHome()">⟵ Volver</button>
+
+<h2>Ajustes</h2>
+
+<div class="section">
+    <h3>Historial</h3>
+    <button class="btn-pill" onclick="openHistorial()">Ver / Restaurar / Eliminar</button>
+</div>
+
+<div class="section">
+    <h3>Backup</h3>
+    <button class="btn-pill" onclick="exportBackup()">Exportar</button>
+
+    <input type="file" id="import_file" style="margin-top:15px;">
+    <button class="btn-pill" onclick="importBackup(document.getElementById('import_file').files[0])">
+        Importar
+    </button>
+</div>
